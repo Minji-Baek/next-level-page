@@ -19,11 +19,24 @@
       <span class="cursor__trace__inner">
     </div>
   </div>
+
+
+  <section class="preloader shown-area">
+    <button class="preloader__btn">
+      <span class="preloader__btn_hold">Hold</span>
+    </button>
+  </section>
   
+
+  <section class="header hidden-area">
+    Header
+  </section>
 </body>
+
 
 <script>
 
+  //cursor
   document.addEventListener("mousemove", (e) => {
     const cursorDefaultInner =  document.querySelector(".cursor__default__inner");
     const cursorTraceInner =  document.querySelector(".cursor__trace__inner");
@@ -35,17 +48,16 @@
     cursorTraceInner.style.left =  e.clientX + "px";
     
   })
-
   const cursor = document.querySelector(".cursor");
 
   document.addEventListener("mousedown", () => {
     cursor.classList.add("cursor--active");
   });
-
   document.addEventListener("mouseup", () => {
     cursor.classList.remove("cursor--active");
   });
 
+  // 물결 event func
   function createRipple(e) {
     let ripple = document.createElement("span");
 
@@ -58,11 +70,55 @@
     ripple.addEventListener("animationend", () => {
       cursor.removeChild(ripple)
     })
-
   }
   document.addEventListener("click", (e) => {
     createRipple(e)
   })
+
+
+  //hold button
+  const preLoaderBtn = document.querySelector('.preloader__btn');
+  let intervalId = null;
+  let scale = 1;
+  const preloaderHideThreshold = 18; //최대 크기
+  //
+  function setPreLoaderStyle(scale){
+    preLoaderBtn.style.transform = `scale(${scale})`
+    document.querySelector(".preloader__btn_hold").style.opacity = 1 - (scale -1) / preloaderHideThreshold
+  }
+
+  preLoaderBtn.addEventListener("mousedown", () => {
+    intervalId = setInterval(()=>{
+      scale += 0.175;
+      setPreLoaderStyle(scale);
+
+      if(scale > 1+preloaderHideThreshold) {
+        const header = document.querySelector(".header");
+
+        document.querySelector(".preloader").classList.add("hidden-area");
+
+        header.classList.remove("hidden-area");
+
+        header.classList.add("shown-area");
+
+        clearInterval(intervalId);
+      }
+    }, 10)
+  });
+  preLoaderBtn.addEventListener("mouseup", () => {
+
+    clearInterval(intervalId);
+    intervalId = setInterval(()=>{
+      scale -= 0.075;
+      setPreLoaderStyle(scale);
+      if(scale<=1){
+        clearInterval(intervalId);
+      }
+    }, 10)
+  });
+
+
+  //mouse moving object
 
 </script>
 </html>

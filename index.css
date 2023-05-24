@@ -51,6 +51,7 @@ table {
 
 body {
   cursor: none !important;
+  background-color: #74147c;
 }
 
 .cursor{
@@ -60,6 +61,7 @@ body {
   right: 0;
   bottom: 0;
   z-index: 9999;
+  pointer-events: none !important;
 }
 
 .cursor__default__inner {
@@ -117,4 +119,50 @@ body {
   animation: ripple .5s ease-out;
   animation-fill-mode: forwards;
   z-index: -1;
+}
+
+
+
+/* hold button */
+
+.shown-area {
+  display: block;
+  opacity: 1;
+}
+
+.hidden-area {
+  display: none;
+  opacity: 0;
+}
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #750e08;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.preloader__btn{
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: none;
+  background-color: #125521;
+  color: #ebee56;
+  margin-top: -60px;
+  margin-left: -60px;
+
+}
+
+.preloader__btn_hold{
+  font-size: 19px;
+  line-height: 20px;
+  font-weight: 800;
+  letter-spacing: normal;
 }
