@@ -28,8 +28,20 @@
   </section>
   
 
-  <section class="header hidden-area">
-    Header
+  <section class="header  hidden-area  ">
+    <span class="circle" id="circle-1"></span>
+    <span class="circle" id="circle-2"></span>
+    <span class="circle" id="circle-3"></span>
+    <span class="circle" id="circle-4"></span>
+
+    <img id="cube__image" src="./images/Lovepik_com-401467010-cube.png" alt="cube image" class="cube__image">
+    <img id="crescent-moon" src="./images/crescent-moon.png" alt="cube image" class="cube__image">
+    <img id="kitty" src="./images/kitty.png" alt="cube image" class="cube__image">
+    <img id="north-star" src="./images/north-star.png" alt="cube image" class="cube__image">
+    <h1 class="header__title">
+      <div>LAST ART</div>
+      <div>PROJECTS</div>
+    </h1>
   </section>
 </body>
 
@@ -87,13 +99,13 @@
     document.querySelector(".preloader__btn_hold").style.opacity = 1 - (scale -1) / preloaderHideThreshold
   }
 
+  const header = document.querySelector(".header");
   preLoaderBtn.addEventListener("mousedown", () => {
     intervalId = setInterval(()=>{
       scale += 0.175;
       setPreLoaderStyle(scale);
 
       if(scale > 1+preloaderHideThreshold) {
-        const header = document.querySelector(".header");
 
         document.querySelector(".preloader").classList.add("hidden-area");
 
@@ -119,6 +131,21 @@
 
 
   //mouse moving object
+  header.addEventListener("mousemove", (e) => {
+    const xRelativeToHeader = e.clientX / header.clientWidth
+    const yRelativeToHeader = e.clientY / header.clientHeight
 
+    document.querySelector(".header__title").style.transform = `translate(${(xRelativeToHeader * -50)}px, ${yRelativeToHeader * -50}px)`
+
+    document.querySelector("#circle-1").style.transform = `translate(${xRelativeToHeader * -25}px, ${yRelativeToHeader * -25}px)`
+    document.querySelector("#circle-2").style.transform = `translate(${xRelativeToHeader * 25}px, ${yRelativeToHeader * 25}px)`
+    document.querySelector("#circle-3").style.transform = `translate(${xRelativeToHeader * -25}px, ${yRelativeToHeader * -25}px)`
+    document.querySelector("#circle-4").style.transform = `translate(${xRelativeToHeader * -25}px, ${yRelativeToHeader * -25}px)`
+
+    document.querySelector("#cube__image").style.transform = `translate(${xRelativeToHeader * -15}px, ${yRelativeToHeader * -15}px)`
+    document.querySelector("#crescent-moon").style.transform = `translate(${xRelativeToHeader * -8}px, ${yRelativeToHeader * -8}px)`
+    document.querySelector("#kitty").style.transform = `translate(${xRelativeToHeader * -20}px, ${yRelativeToHeader * -20}px)`
+    document.querySelector("#north-star").style.transform = `translate(${xRelativeToHeader * 5}px, ${yRelativeToHeader * 5}px)`
+  })
 </script>
 </html>
